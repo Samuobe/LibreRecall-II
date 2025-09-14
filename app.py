@@ -10,6 +10,9 @@ from PyQt6 import QtGui
 
 import library.lpak as lpak
 
+#Other function adn windows import
+import settings as open_settings
+
 # VAR
 user_path = os.path.expanduser("~")+"/"
 data_path = user_path+".local/share/LibreRecall"
@@ -182,6 +185,11 @@ grid_layout = pq.QGridLayout(scroll_content)
 # Aggiungi immagini alla griglia
 add_images(image_list, lpak.get("No screenshots, start the daemon to begin capturing", language))
 
+#Menu bar
+menu_bar = root.menuBar()
+settings_menu = menu_bar.addMenu(lpak.get("Settings", language))
+open_settings_option = settings_menu.addAction(lpak.get("Settings", language))
+open_settings_option.triggered.connect(lambda: open_settings.settings(language))
 
 root.show()
 sys.exit(app.exec())

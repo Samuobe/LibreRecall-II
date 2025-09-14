@@ -66,8 +66,8 @@ def settings(language):
 
 
 
-
+"""
 app = pq.QApplication(sys.argv)
 settings("Italiano")
 sys.exit(app.exec())
-
+"""
