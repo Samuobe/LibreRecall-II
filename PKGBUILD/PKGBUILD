@@ -29,11 +29,15 @@ package() {
     install -d "$pkgdir/usr/share/LibreRecall"
     cp -r "$srcdir/LibreRecall-II/"* "$pkgdir/usr/share/LibreRecall"
 
-    # Wrapper in /usr/bin
+    # Wrapper corretto
+    install -d "$pkgdir/usr/bin"
     cat >"$pkgdir/usr/bin/LibreRecall" <<'EOF'
-    #!/bin/sh
-    exec python3 /usr/share/LibreRecall/app.py "$@"
+#!/bin/sh
+exec python3 /usr/share/LibreRecall/app.py "$@"
 EOF
+    chmod 755 "$pkgdir/usr/bin/LibreRecall"
+
+
     chmod 755 "$pkgdir/usr/bin/LibreRecall"
 
     # Icona

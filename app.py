@@ -15,6 +15,9 @@ user_path = os.path.expanduser("~")+"/"
 data_path = user_path+".local/share/LibreRecall"
 images_dir = data_path+"/images"
 
+program_path = "/usr/share/LibreRecall"
+os.chdir(program_path)
+
 language = "Italiano"
 
 def show_image(image_path):
