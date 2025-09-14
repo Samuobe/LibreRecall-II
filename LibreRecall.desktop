@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=LibreRecall
+Exec=LibreRecall
+Icon=LibreRecall
+Categories=System;
+Terminal=false
