@@ -1,6 +1,6 @@
 # Maintainer: Samuobe samuobe@ik.me
 
-pkgname=librerecall-git
+pkgname=LibreRecall-git
 pkgver=1.0.0
 pkgrel=1
 pkgdesc="Software to search for what you have seen on the screen recently"
@@ -11,8 +11,6 @@ depends=(
   'python'
   'python-pyqt6'
   'python-pillow'
-  'python-pyautogui'
-  'python-pytesseract'
   'flameshot'
   'tesseract'
 )
@@ -27,16 +25,16 @@ pkgver() {
 }
 
 package() {
-    # Copia tutto il progetto in /usr/share/arch-store
-    install -d "$pkgdir/usr/bin/LibreRecall"
-    cp -r "$srcdir/LibreRecall-II/"* "$pkgdir/usr/bin/LibreRecall"
-   
+    # Codice in /usr/share/LibreRecall
+    install -d "$pkgdir/usr/share/LibreRecall"
+    cp -r "$srcdir/LibreRecall-II/"* "$pkgdir/usr/share/LibreRecall"
 
-    # Crea un wrapper in /usr/bin
-    install -Dm755 /dev/stdin "$pkgdir/usr/bin/LibreRecall" <<EOF
-#!/bin/sh
-exec python3 /usr/bin/LibreRecall/app.py "\$@"
+    # Wrapper in /usr/bin
+    cat >"$pkgdir/usr/bin/LibreRecall" <<'EOF'
+    #!/bin/sh
+    exec python3 /usr/share/LibreRecall/app.py "$@"
 EOF
+    chmod 755 "$pkgdir/usr/bin/LibreRecall"
 
     # Icona
     install -Dm644 "$srcdir/LibreRecall-II/icon.png" "$pkgdir/usr/share/pixmaps/LibreRecall.png"
@@ -44,6 +42,6 @@ EOF
     # File .desktop
     install -Dm644 "$srcdir/LibreRecall-II/LibreRecall.desktop" "$pkgdir/usr/share/applications/LibreRecall.desktop"
 
-    install -Dm644 "$srcdir/LibreRecall-II/LibreRecall_daemon.deskto" "$pkgdir/etc/xdg/autostart/LibreRecall_daemon.desktop"
+    install -Dm644 "$srcdir/LibreRecall-II/LibreRecall_daemon.desktop" "$pkgdir/etc/xdg/autostart/LibreRecall_daemon.desktop"
 
 }
