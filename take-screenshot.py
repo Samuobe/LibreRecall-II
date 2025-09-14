@@ -8,9 +8,12 @@ user_path = os.path.expanduser("~")+"/"
 data_path = user_path+".local/share/LibreRecall"
 config_path = user_path+ ".config/LibreRecall"
 
-working_path = "/usr/bin/LibreRecall"
+working_path = "/usr/share/LibreRecall"
 
-
+if not os.path.isdir(config_path):
+    os.makedirs(config_path)
+if not os.path.isdir(data_path):
+    os.makedirs(data_path)
 if not os.path.isfile(config_path+"/time.conf"):
     with open(config_path+"/time.conf", "w") as f:
         f.write("30")
