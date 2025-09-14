@@ -48,7 +48,7 @@ def settings(language):
     settings_label = pq.QLabel(lpak.get("Settings", language))
 
     enable_disable_daemon_label = pq.QLabel(lpak.get("Periodic screenshots", language))
-    if status == "enable":
+    if "enable" in status:
         button_text = lpak.get("disable", language)
     else:
         button_text = lpak.get("enable", language)
