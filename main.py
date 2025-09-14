@@ -10,7 +10,7 @@ config_path = user_path+ ".config/LibreRecall"
 os.makedirs(data_path, exist_ok=True)
 os.makedirs(config_path, exist_ok=True)
 
-working_path = "/usr/bin/LibreRecall"
+working_path = "/usr/share/LibreRecall"
 
 
 # File di configurazione
