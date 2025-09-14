@@ -76,5 +76,5 @@ def main():
             except subprocess.TimeoutExpired:
                 p.kill()
 
-if __name__ == "__main__":
+if __name__ == "__main__":    
     main()

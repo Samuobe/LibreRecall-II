@@ -10,6 +10,15 @@ config_path = user_path+ ".config/LibreRecall"
 
 working_path = "/usr/bin/LibreRecall"
 
+
+if not os.path.isfile(config_path+"/time.conf"):
+    with open(config_path+"/time.conf") as f:
+        f.write("30")
+if not os.path.isfile(f"{config_path}/max_screens.conf"):
+    with open(f"{config_path}/max_screens.conf", "w") as f:
+        f.write("1000")
+
+
 while True:
     with open(f"{config_path}/time.conf") as f:
         data = f.readlines()
