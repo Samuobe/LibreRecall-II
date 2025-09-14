@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
 Name=LibreRecall Screenshot Daemon
-Exec=python3 /usr/share/LibreRecall/take-screenshot.py
+Exec=python3 /usr/share/LibreRecall/main.py
 Comment=Start the daemon of LibreRecall for screenshot
 X-GNOME-Autostart-enabled=true
