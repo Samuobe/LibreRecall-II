@@ -19,7 +19,7 @@ def settings(language):
 
     if not os.path.isfile(config_path+"/service.conf"):
         with open(config_path+"/service.conf", "w") as f:
-            f.write("disable")
+            f.write("LibreRecall_daemon=disable")
 
     with open(config_path+"/service.conf", "r") as f:
         data = f.readlines()
@@ -28,7 +28,7 @@ def settings(language):
 
     def enable_disable_daemon():
         global status
-        if status == "enable":
+        if "enable" in status:
             status = "disable"
             enable_disable_daemon_button.setText(lpak.get("enable", language))            
         else:
@@ -36,7 +36,7 @@ def settings(language):
             enable_disable_daemon_button.setText(lpak.get("disable", language))
         
         with open(config_path+"/service.conf", "w") as f:
-            f.write(status)
+            f.write("LibreRecall_daemon="+status)
     
 
     settings_page = pq.QDialog()
