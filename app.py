@@ -64,7 +64,7 @@ def show_image(image_path):
 
     win.show()
 
-def add_images(image_list, search_term):
+def add_images(image_list, search_term, n):
     global root, scroll_area, grid_layout
 
     # pulisco il layout
@@ -78,7 +78,7 @@ def add_images(image_list, search_term):
     max_rows = 2  # numero di righe per colonna
 
     temp_list = image_list[::-1]  # copia della lista originale
-
+    n_temp = 0
     while temp_list:
         image = temp_list.pop(0)
 
@@ -118,6 +118,10 @@ def add_images(image_list, search_term):
             row = 0
             col += 1  # passo alla colonna successiva
 
+        if n_temp > n-2:
+            break
+        n_temp = n_temp+1
+
     if not image_list:
         if not lpak.get("No screenshots, start the daemon to begin capturing", language) == search_term:
             not_found_label = pq.QLabel(lpak.get("No images found with these words", language)+": "+search_term)
@@ -136,7 +140,7 @@ def search():
             image_name = data_file.replace(".txt", ".png")
             images_list.append(image_name)
 
-    add_images(images_list, search_term)
+    add_images(images_list, search_term, 0)
 
 
 # CREA CARTELLA SE NON ESISTE
@@ -183,7 +187,7 @@ scroll_area.setWidget(scroll_content)
 grid_layout = pq.QGridLayout(scroll_content)
 
 # Aggiungi immagini alla griglia
-add_images(image_list, lpak.get("No screenshots, start the daemon to begin capturing", language))
+add_images(image_list, lpak.get("No screenshots, start the daemon to begin capturing", language), 10)
 
 #Menu bar
 menu_bar = root.menuBar()
