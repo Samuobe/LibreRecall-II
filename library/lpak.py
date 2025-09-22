@@ -10,4 +10,4 @@ def get(word, language):
               
                 if key == word:
                     return str(value)                
-    return None
+    return word

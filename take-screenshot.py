@@ -14,24 +14,18 @@ if not os.path.isdir(config_path):
     os.makedirs(config_path)
 if not os.path.isdir(data_path):
     os.makedirs(data_path)
-if not os.path.isfile(config_path+"/time.conf"):
-    with open(config_path+"/time.conf", "w") as f:
-        f.write("30")
-if not os.path.isfile(f"{config_path}/max_screens.conf"):
-    with open(f"{config_path}/max_screens.conf", "w") as f:
-        f.write("1000")
+if not os.path.isfile(config_path+"/config.conf"):
+    time_sleep = "30"
+if not os.path.isfile(f"{config_path}/coinfig.conf"):
+    max_screens= 1000
 
 
 while True:
-    with open(f"{config_path}/time.conf") as f:
+    with open(f"{config_path}/config.conf") as f:
         data = f.readlines()
-    time_sleep = data[0]
-
-
-    with open(f"{config_path}/max_screens.conf") as f:
-        data = f.readlines()
-
-    max_screens = int(data[0])
+    time_sleep = data[2].split("=")[1].stip()
+    max_screens = int(data[3].split("=")[1].strip())
+    
 
     user_path = os.path.expanduser("~")+"/"
     data_path = user_path+".local/share/LibreRecall"

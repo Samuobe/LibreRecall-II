@@ -11,17 +11,39 @@ from PyQt6 import QtGui
 import library.lpak as lpak
 
 #Other function adn windows import
-import settings as open_settings
+from settings import settings as open_settings
 
 # VAR
 user_path = os.path.expanduser("~")+"/"
 data_path = user_path+".local/share/LibreRecall"
 images_dir = data_path+"/images"
+config_path = user_path+ ".config/LibreRecall"
 
 program_path = "/usr/share/LibreRecall"
 os.chdir(program_path)
 
-language = "Italiano"
+#language = "Italiano"
+
+# Auto set variables
+avaible_languages_temp = glob.glob(f"{program_path}/lpak/*.lpak")
+avaible_languages = []
+for language in avaible_languages_temp:
+    avaible_languages.append(language.split("/")[-1].split(".")[0])
+avaible_languages.sort(key=str.lower)
+
+
+def load_settings():
+    global language, images_home_number
+    if not os.path.isfile(config_path + "/config.conf"):
+        with open(config_path + "/config.conf", "w") as f:
+            f.write("Language=English\n")
+            f.write("Number of screens=20\n")
+            f.write("Time beetween screenshot=30\n")
+            f.write("Max screenshots=1000\n")
+    with open(config_path + "/config.conf", "r") as f:
+        data = f.readlines()
+    language = data[0].split("=")[1].strip()
+    images_home_number = int(data[1].split("=")[1].strip())
 
 def show_image(image_path):
     global win
@@ -118,6 +140,7 @@ def add_images(image_list, search_term, n):
             row = 0
             col += 1  # passo alla colonna successiva
 
+        
         if n_temp > n-2:
             break
         n_temp = n_temp+1
@@ -140,9 +163,17 @@ def search():
             image_name = data_file.replace(".txt", ".png")
             images_list.append(image_name)
 
-    add_images(images_list, search_term, 0)
+    add_images(images_list, search_term, images_home_number)
+
+def open_settings_and_update(language, avaible_languages):
+    global image_list
+    win = open_settings(language, avaible_languages)
+    win.exec()    
+    load_settings()
+    add_images(image_list, lpak.get("No screenshots, start the daemon to begin capturing", language), images_home_number)
 
 
+load_settings()
 # CREA CARTELLA SE NON ESISTE
 os.makedirs(images_dir, exist_ok=True)
 
@@ -187,13 +218,13 @@ scroll_area.setWidget(scroll_content)
 grid_layout = pq.QGridLayout(scroll_content)
 
 # Aggiungi immagini alla griglia
-add_images(image_list, lpak.get("No screenshots, start the daemon to begin capturing", language), 10)
+add_images(image_list, lpak.get("No screenshots, start the daemon to begin capturing", language), images_home_number)
 
 #Menu bar
 menu_bar = root.menuBar()
 settings_menu = menu_bar.addMenu(lpak.get("Settings", language))
 open_settings_option = settings_menu.addAction(lpak.get("Settings", language))
-open_settings_option.triggered.connect(lambda: open_settings.settings(language))
+open_settings_option.triggered.connect(lambda: open_settings_and_update(language, avaible_languages))
 
 root.show()
 sys.exit(app.exec())
