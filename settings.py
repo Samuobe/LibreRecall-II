@@ -120,7 +120,7 @@ def settings(language, avaible_languages):
     max_screens_input.setValidator(QIntValidator(1, 2147483647))
 
     #Screens number on page
-    label_max_screensPage = pq.QLabel(lpak.get("Maximum number of screenshots that can be saved", language))
+    label_max_screensPage = pq.QLabel(lpak.get("Initial number of screenshot", language))
     max_screensPage_input = pq.QLineEdit()
     max_screensPage_input.setPlaceholderText(lpak.get("Max number", language)+": 2147483647")
     max_screensPage_input.setValidator(QIntValidator(1, 2147483647))
